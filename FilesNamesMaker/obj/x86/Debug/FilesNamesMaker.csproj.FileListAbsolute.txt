@@ -1,0 +1,4 @@
+c:\users\agustin.binci\documents\visual studio 2010\Projects\FilesNamesMaker\FilesNamesMaker\bin\Debug\FilesNamesMaker.exe
+c:\users\agustin.binci\documents\visual studio 2010\Projects\FilesNamesMaker\FilesNamesMaker\bin\Debug\FilesNamesMaker.pdb
+c:\users\agustin.binci\documents\visual studio 2010\Projects\FilesNamesMaker\FilesNamesMaker\obj\x86\Debug\FilesNamesMaker.exe
+c:\users\agustin.binci\documents\visual studio 2010\Projects\FilesNamesMaker\FilesNamesMaker\obj\x86\Debug\FilesNamesMaker.pdb
