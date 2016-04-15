@@ -355,7 +355,7 @@ namespace FilesNamesMaker
                     }
 
                     //Ird solo
-                    /*expresionRegular = @"[0-9]+.?ird";
+                    expresionRegular = @"[0-9]+.?ird";
                     regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
                     regExpMatch = regExp.Match(this.cadena);
 
@@ -380,10 +380,12 @@ namespace FilesNamesMaker
                             if (regExpMatchAux.Success) unDecoSinMirror.setCantidad(Int32.Parse(regExpMatchAux.Value));
                             else throw new Exception("Ird sin cantidad");
 
+                            break;
+
                         }
 
                         regExpMatch = regExpMatch.NextMatch();
-                    }*/
+                    }
                 }
 
                 return unDeco;

@@ -17,16 +17,24 @@ namespace FilesNamesMaker
 
         public override string ToString()
         {
+            if (this.tipoDePago == null) throw new Exception(this.descripcion + " no tengo tipo de pago");
+
+            String unaDescripcion = this.getDescripcionCompleta();
+            unaDescripcion += " - ";
+            unaDescripcion += this.tipoDePago.descripcion;
+            return unaDescripcion;
+        }
+
+        public String getDescripcionCompleta()
+        {
             String unaDescripcion = this.cantidad.ToString();
             unaDescripcion += " ";
             unaDescripcion += this.descripcion;
-            unaDescripcion += " - ";
-            unaDescripcion += this.tipoDePago.descripcion;
 
             if (this.deco != null)
             {
                 unaDescripcion += " + ";
-                unaDescripcion += this.deco.ToString();
+                unaDescripcion += this.deco.getDescripcionCompleta();
             }
 
             return unaDescripcion;
