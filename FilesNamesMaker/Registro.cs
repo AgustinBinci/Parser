@@ -14,7 +14,7 @@ namespace FilesNamesMaker
 
         public String getNombreFormateado()
         {
-            String unNombre = Fecha.getAnio().ToString() + Fecha.getMes().ToString();
+            String unNombre = Fecha.getAnio() + Fecha.getMes();
             unNombre += " - ";
             unNombre += this.ciclo.descripcion;
             unNombre += " - ";

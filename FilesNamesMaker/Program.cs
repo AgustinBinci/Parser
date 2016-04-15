@@ -11,34 +11,46 @@ namespace FilesNamesMaker
     {
         static void Main(string[] args)
         {
-            //Proceso archivos
-            DirectoryInfo unDirectorio = new DirectoryInfo(@"C:\Users\agustin.binci\Documents\Directv");
+            try
+            {
+                Int32 i = 0;
+                //Proceso archivos
+                DirectoryInfo unDirectorio = new DirectoryInfo(@"C:\Users\Eduardo\Documents\Directv");
+                Parser unParser = new Parser();
 
-            //foreach (var unArchivo in unDirectorio.GetFiles())
-            //{
-                //Parseo
-                String unString = " sa nexus asfa -09.1fdsf ";
-                String expresionRegular = @"[0-9]+";
+                foreach (var unArchivo in unDirectorio.GetFiles())
+                {
+                    //Parseo
+                    unParser.cadena = unArchivo.Name;
+                    unParser.parsear();
 
+                    //
+                    Console.WriteLine(i.ToString());
+                    Console.WriteLine(unArchivo.Name);
+                    Console.WriteLine(unParser.registro.getNombreFormateado());
+
+                    Console.WriteLine("\n");
+                    i++;
+                
+                //Renombro
+                //unArchivo.MoveTo(@"C:\Users\agustin.binci\Documents\Directv\" + unArchivo.Name + "1");
+                }
+
+               /* String expresionRegular = @".*((ef)|(tc)).*";
                 Regex regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
-
-                Match regExpMatch = regExp.Match(unString);
+                Match regExpMatch = regExp.Match("fseffds");
 
                 while (regExpMatch.Success)
                 {
-                    Console.WriteLine(regExpMatch.Value);
+                    Console.WriteLine(regExpMatch);
                     regExpMatch = regExpMatch.NextMatch();
-                }
+                }*/
 
-                //Imprimo
-                /*Console.WriteLine(unArchivo.Name);
-                Console.WriteLine(unArchivo.Name);
+            }
+            catch(Exception unaExcepcion){
+                Console.WriteLine(unaExcepcion.ToString());
+            }         
 
-                Console.WriteLine("\n");
-                
-                //Renombro
-                //unArchivo.MoveTo(@"C:\Users\agustin.binci\Documents\Directv\" + unArchivo.Name + "1");*/
-            //}
         }
     }
 }

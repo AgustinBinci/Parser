@@ -9,7 +9,6 @@ namespace FilesNamesMaker
     {
 
         public Int32 cantidadDeMirrors { get; set; }
-        public TipoDePago tipoDePago { get; set; }
 
         public DecoConMirrors()
             : base()

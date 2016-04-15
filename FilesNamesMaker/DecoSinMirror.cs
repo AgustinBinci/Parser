@@ -7,7 +7,7 @@ namespace FilesNamesMaker
 {
     class DecoSinMirror : Deco
     {
-        public Deco deco { get; set; }
+        public DecoSinMirror deco { get; set; }
 
         public DecoSinMirror()
             : base() 
@@ -17,23 +17,37 @@ namespace FilesNamesMaker
 
         public override string ToString()
         {
-            String unaDescripcion = this.getDescripcionCompletaDe(this);
+            String unaDescripcion = this.cantidad.ToString();
+            unaDescripcion += " ";
+            unaDescripcion += this.descripcion;
+            unaDescripcion += " - ";
+            unaDescripcion += this.tipoDePago.descripcion;
 
             if (this.deco != null)
             {
                 unaDescripcion += " + ";
-                unaDescripcion += this.getDescripcionCompletaDe(this.deco);
+                unaDescripcion += this.deco.ToString();
             }
 
             return unaDescripcion;
         }
 
-        private String getDescripcionCompletaDe(Deco unDeco)
+        public override void setCantidad(Int32 unaCantidad)
         {
-            String unaDescripcion = unDeco.cantidad.ToString();
-            unaDescripcion += " ";
-            unaDescripcion += unDeco.descripcion;
-            return unaDescripcion;
+            if (this.deco != null) this.deco.setCantidad(unaCantidad);
+            else this.cantidad = unaCantidad;
+        }
+
+        public override void setDescripcion(String unaDescripcion)
+        {
+            if (this.deco != null) this.deco.setDescripcion(unaDescripcion);
+            else this.descripcion = unaDescripcion;
+        }
+
+        public void addDeco()
+        {
+            if (this.deco != null) this.deco.addDeco();
+            else this.deco = new DecoSinMirror();
         }
 
     }

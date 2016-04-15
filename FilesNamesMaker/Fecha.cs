@@ -8,14 +8,16 @@ namespace FilesNamesMaker
     static class Fecha
     {
 
-        public static Int32 getAnio() 
+        public static String getAnio() 
         {
-            return DateTime.Today.Year;
+            return DateTime.Today.Year.ToString();
         }
 
-        public static Int32 getMes()
+        public static String getMes()
         {
-            return DateTime.Today.Month;
+            String unMes = DateTime.Today.Month.ToString();
+            if (unMes.Count() == 1) unMes = "0" + unMes;
+            return unMes;
         }
 
     }
