@@ -28,7 +28,7 @@ namespace FilesNamesMaker
             }
             catch (Exception unaExcepcion)
             {
-                throw unaExcepcion;
+                throw new Exception(unaExcepcion.Message + " -- " + this.cadena);
             }
         }
 
@@ -78,69 +78,69 @@ namespace FilesNamesMaker
                 Regex regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
                 Match regExpMatch = regExp.Match(this.cadena);
 
-                if (regExpMatch.Success) unCiclo.descripcion = "CORPORATIVO DIRECTA";
-
-                else
+                if (regExpMatch.Success) 
                 {
-                    //Corporativo indirecta
+                    //Chequeo indirecta
                     expresionRegular = @"indirecta";
                     regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
                     regExpMatch = regExp.Match(this.cadena);
 
                     if (regExpMatch.Success) unCiclo.descripcion = "CORPORATIVO INDIRECTA";
+                    else unCiclo.descripcion = "CORPORATIVO DIRECTA";
+                }            
+
+                else
+                {
+                    //Regular
+                    expresionRegular = @"regular";
+                    regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
+                    regExpMatch = regExp.Match(this.cadena);
+
+                    if (regExpMatch.Success) unCiclo.descripcion = "REGULAR";
 
                     else
                     {
-                        //Regular
-                        expresionRegular = @"regular";
+                        //Empleados red
+                        expresionRegular = @"empleado[s]? red";
                         regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
                         regExpMatch = regExp.Match(this.cadena);
 
-                        if (regExpMatch.Success) unCiclo.descripcion = "REGULAR";
+                        if (regExpMatch.Success) unCiclo.descripcion = "EMPLEADOS RED";
 
                         else
                         {
-                            //Empleados red
-                            expresionRegular = @"empleado[s]? red";
+                            //Empleados mam
+                            expresionRegular = @"empleado[s]? mam";
                             regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
                             regExpMatch = regExp.Match(this.cadena);
 
-                            if (regExpMatch.Success) unCiclo.descripcion = "EMPLEADOS RED";
+                            if (regExpMatch.Success) unCiclo.descripcion = "EMPLEADOS MAM";
 
                             else
                             {
-                                //Empleados mam
-                                expresionRegular = @"empleado[s]? mam";
+                                //Mdu
+                                expresionRegular = @"mdu";
                                 regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
                                 regExpMatch = regExp.Match(this.cadena);
 
-                                if (regExpMatch.Success) unCiclo.descripcion = "EMPLEADOS MAM";
+                                if (regExpMatch.Success) unCiclo.descripcion = "MDU";
 
                                 else
                                 {
-                                    //Mdu
-                                    expresionRegular = @"mdu";
+                                    //referido
+                                    expresionRegular = @"referido";
                                     regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
                                     regExpMatch = regExp.Match(this.cadena);
 
-                                    if (regExpMatch.Success) unCiclo.descripcion = "MDU";
+                                    if (regExpMatch.Success) unCiclo.descripcion = "REFERIDO";
 
-                                    else
-                                    {
-                                        //referido
-                                        expresionRegular = @"referido";
-                                        regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
-                                        regExpMatch = regExp.Match(this.cadena);
-
-                                        if (regExpMatch.Success) unCiclo.descripcion = "REFERIDO";
-
-                                        else throw new Exception("No hay ningun ciclo");
-                                    }
+                                    else throw new Exception("No hay ningun ciclo");
                                 }
                             }
                         }
                     }
                 }
+                
 
                 return unCiclo;
 
@@ -228,7 +228,7 @@ namespace FilesNamesMaker
                     regExpMatch = regExp.Match(this.cadena);
                     Boolean plataEncontrado = false;
 
-                    while (regExpMatch.Success)
+                    if (regExpMatch.Success)
                     {
                         matchPrincipal = regExpMatch.Value;
 
@@ -240,6 +240,7 @@ namespace FilesNamesMaker
                         {
                             if (decoEncontrado) unDecoSinMirror.addDeco();
                             unDecoSinMirror.setDescripcion("IRD PLATA");
+                            decoEncontrado = true;
 
                             //Cantidad
                             expresionRegular = @"[0-9]+";
@@ -251,7 +252,7 @@ namespace FilesNamesMaker
 
                         }
 
-                        regExpMatch = regExpMatch.NextMatch();
+               
                     }
 
                     if (!plataEncontrado)
@@ -266,6 +267,7 @@ namespace FilesNamesMaker
 
                             if (decoEncontrado) unDecoSinMirror.addDeco();
                             unDecoSinMirror.setDescripcion("IRD PLATA");
+                            decoEncontrado = true;
 
                             //Cantidad
                             expresionRegular = @"[0-9]+";
@@ -283,7 +285,7 @@ namespace FilesNamesMaker
                     regExpMatch = regExp.Match(this.cadena);
                     Boolean mixEncontrado = false;
 
-                    while (regExpMatch.Success)
+                    if (regExpMatch.Success)
                     {
                         matchPrincipal = regExpMatch.Value;
 
@@ -297,6 +299,7 @@ namespace FilesNamesMaker
 
                             if (decoEncontrado) unDecoSinMirror.addDeco();
                             unDecoSinMirror.setDescripcion("IRD MIX");
+                            decoEncontrado = true;
 
                             //Cantidad
                             expresionRegular = @"[0-9]+";
@@ -308,7 +311,6 @@ namespace FilesNamesMaker
 
                         }
 
-                        regExpMatch = regExpMatch.NextMatch();
                     }
 
                     if (!mixEncontrado)
@@ -323,6 +325,7 @@ namespace FilesNamesMaker
 
                             if (decoEncontrado) unDecoSinMirror.addDeco();
                             unDecoSinMirror.setDescripcion("IRD MIX");
+                            decoEncontrado = true;
 
                             //Cantidad
                             expresionRegular = @"[0-9]+";
@@ -343,6 +346,7 @@ namespace FilesNamesMaker
                     {
                         if (decoEncontrado) unDecoSinMirror.addDeco();
                         unDecoSinMirror.setDescripcion("PLUS HD");
+                        decoEncontrado = true;
 
                         //Cantidad
                         expresionRegular = @"[0-9]+";
@@ -355,36 +359,40 @@ namespace FilesNamesMaker
                     }
 
                     //Ird solo
-                    expresionRegular = @"[0-9]+.?ird";
+                    expresionRegular = @"\+ ?[0-9]+.?ird";
                     regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
                     regExpMatch = regExp.Match(this.cadena);
 
-                    while (regExpMatch.Success)
+                    if (regExpMatch.Success)
                     {
-                        matchPrincipal = regExpMatch.Value;
 
-                        expresionRegular = @"(mix)|(plata)";
+                        expresionRegular = @"[0-9]+";
                         regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
-                        Match regExpMatchAux = regExp.Match(this.cadena);
+                        Match regExpMatchAux = regExp.Match(regExpMatch.Value);
 
-                        if (!regExpMatchAux.Success)
+                        if (regExpMatchAux.Success)
                         {
                             if (decoEncontrado) unDecoSinMirror.addDeco();
+
                             unDecoSinMirror.setDescripcion("IRD");
-
-                            //Cantidad
-                            expresionRegular = @"[0-9]+";
-                            regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
-                            regExpMatchAux = regExp.Match(matchPrincipal);
-
-                            if (regExpMatchAux.Success) unDecoSinMirror.setCantidad(Int32.Parse(regExpMatchAux.Value));
-                            else throw new Exception("Ird sin cantidad");
-
-                            break;
-
+                            unDecoSinMirror.setCantidad(Int32.Parse(regExpMatchAux.Value));                                                
                         }
+                        else throw new Exception("Ird sin cantidad");
 
-                        regExpMatch = regExpMatch.NextMatch();
+                    }
+                    else
+                    {
+                        expresionRegular = @"\+ ?ird";
+                        regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
+                        regExpMatch = regExp.Match(this.cadena);
+
+                        if (regExpMatch.Success)
+                        {
+                            if (decoEncontrado) unDecoSinMirror.addDeco();
+
+                            unDecoSinMirror.setDescripcion("IRD");
+                            unDecoSinMirror.setCantidad(1);        
+                        }
                     }
                 }
 

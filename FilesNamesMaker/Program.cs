@@ -13,9 +13,11 @@ namespace FilesNamesMaker
         {
             try
             {
-                Int32 i = 0;
+                //Carpeta de archivos
+                String unaCarpeta = @"C:\Users\agustin.binci\Documents\Directv\";
+
                 //Proceso archivos
-                DirectoryInfo unDirectorio = new DirectoryInfo(@"C:\Users\Eduardo\Documents\Directv");
+                DirectoryInfo unDirectorio = new DirectoryInfo(unaCarpeta);
                 Parser unParser = new Parser();
 
                 foreach (var unArchivo in unDirectorio.GetFiles())
@@ -24,28 +26,15 @@ namespace FilesNamesMaker
                     unParser.cadena = unArchivo.Name;
                     unParser.parsear();
 
-                    //
-                    Console.WriteLine(i.ToString());
-                    Console.WriteLine(unArchivo.Name);
-                    Console.WriteLine(unParser.registro.getNombreFormateado());
+                    //Obtengo registro
+                    Registro unRegistro = unParser.registro;
 
-                    Console.WriteLine("\n");
-                    i++;
-                
-                //Renombro
-                //unArchivo.MoveTo(@"C:\Users\agustin.binci\Documents\Directv\" + unArchivo.Name + "1");
+                    //Renombro
+                    unArchivo.MoveTo(unaCarpeta + unRegistro.getNombreFormateado() + ".pdf");
                 }
 
-               /* String expresionRegular = @".*((ef)|(tc)).*";
-                Regex regExp = new Regex(expresionRegular, RegexOptions.IgnoreCase);
-                Match regExpMatch = regExp.Match("fseffds");
-
-                while (regExpMatch.Success)
-                {
-                    Console.WriteLine(regExpMatch);
-                    regExpMatch = regExpMatch.NextMatch();
-                }*/
-
+                Console.WriteLine("Mapeo finalizado");
+                
             }
             catch(Exception unaExcepcion){
                 Console.WriteLine(unaExcepcion.ToString());
